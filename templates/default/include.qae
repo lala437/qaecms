@@ -1,0 +1,70 @@
+<link rel="shortcut icon" href="{{qae_asset('default/images/favicon.ico')}}" type="image/x-icon" />
+<link rel="stylesheet" href="{{qae_asset('default/css/iconfont.css')}}" type="text/css" />
+<link rel="stylesheet" href="{{qae_asset('default/css/iconfont2.css')}}" type="text/css" />
+<link rel="stylesheet" href="{{qae_asset('default/css/stui_block.css')}}" type="text/css" />
+<link rel="stylesheet" href="{{qae_asset('default/css/stui_default.css')}}" type="text/css" />
+<link rel="stylesheet" href="{{qae_asset('default/css/stui_custom.css')}}" type="text/css" />
+<script src="{{qae_asset('default/js/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{qae_asset('default/js/stui_default.js')}}"></script>
+<style>
+    .hidepanel{
+      display: none;
+    }
+    .bs{
+        background-color:deepskyblue ;
+    }
+    #ys{
+        background-color:deepskyblue ;
+    }
+    .bofang_box{width:100%;height:620px;}
+    @media screen and (max-width: 750px) {
+        .bofang_box{width:100%;height:250px;}
+    }
+    .changebtn{
+        float: right;
+        text-align: center;
+        margin-right: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 5px 20px;
+        border-radius: 5px;
+        border:1px solid #EEEEEE;
+    }
+    .selectcl{
+        width: 100%;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        border:1px solid #EEEEEE;
+    }
+    .changebtn:hover{
+        background-color: #0ca3d2;
+        color: #0b0b0b;
+    }
+    @media screen and (max-width: 750px) {
+        .longtext {
+            width: 180px;	// 自己看UI图给宽度
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 5;
+            overflow: hidden;
+            /* autoprefixer: off */
+            -webkit-box-orient: vertical;
+            /* autoprefixer: on */
+        }
+
+        .typelist{
+            height: auto;
+            width: auto;
+            float: left;
+        }
+    }
+</style>

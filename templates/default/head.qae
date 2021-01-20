@@ -1,0 +1,82 @@
+<header class="stui-header__top clearfix" id="header-top">
+    <div class="container">
+        <div class="row">
+            <div class="stui-header_bd clearfix">
+                <div class="stui-header__logo">
+                    <a class="logo" href="/"><img src="{{$__WEBLOGO__}}"></a>
+                </div>
+                <div class="stui-header__side">
+                    <ul class="stui-header__user">
+                        <li class="visible-xs">
+                            <a class="open-popup" href="javascript:;">
+                                <i class="icon iconfont icon-viewgallery"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="stui-header__search">
+                        <div id="search">
+                            <input class="form-control mac_wd" id="wd" placeholder="100万部影片任你搜" autocomplete="off" name="wd" type="text" required="">
+                            <button type="button" class="submit" id="submit">
+                                <i class="icon iconfont icon-search"></i>
+                            </button>
+                        </div>
+                        <div id="word" class="autocomplete-suggestions">
+                        </div>
+                    </div>
+                </div>
+                <ul class="stui-header__menu type-slide">
+                   @foreach(qae_nav() as $nav)
+                    <li  class="">
+                    <a href="{{$nav->href}}">{{$nav->title}}</a>
+                    </li>
+                    @endforeach
+                    {{--<li><a href="javascript:;" class="mac_history">历史记录</a></li>--}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="popup clearfix">
+    <div class="popup-head bottom-line">
+        <h5 class="title pull-right">全部分类</h5>
+        <a href="javascript:;" class="close-popup">
+            <i class="icon iconfont icon-back"></i>
+        </a>
+    </div>
+    <div class="popup-body col-pd">
+        <div class="typelist">
+        <h4>电影</h4>
+        <ul class="tag tag-type">
+            @foreach(qae_class_type("video",1) as $cat)
+                <li class="col-xs-4"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>1,'cat'=>$cat->id,'page'=>1,'limit'=>35])}}" target='_self'>{{$cat->name}}</a></li>
+            @endforeach
+        </ul>
+        </div>
+        <div class="typelist">
+        <h4>电视</h4>
+        <ul class="tag tag-type">
+            @foreach(qae_class_type("video",2) as $cat)
+                <li class="col-xs-4"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>2,'cat'=>$cat->id,'page'=>1,'limit'=>35])}}" target='_self'>{{$cat->name}}</a></li>
+            @endforeach
+        </ul>
+        </div>
+        <div class="typelist">
+            <h4>综艺</h4>
+            <ul class="tag tag-type">
+                @foreach(qae_class_type("video",3) as $cat)
+                    <li class="col-xs-3"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>3,'cat'=>$cat->id,'page'=>1,'limit'=>35])}}" target='_self'>{{$cat->name}}</a></li>
+                @endforeach
+            </ul>
+        </div>
+        <div class="typelist">
+            <h4>动漫</h4>
+            <ul class="tag tag-type">
+                @foreach(qae_class_type("video",4) as $cat)
+                    <li class="col-xs-3"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>4,'cat'=>$cat->id,'page'=>1,'limit'=>35])}}" target='_self'>{{$cat->name}}</a></li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+
+
+</div>

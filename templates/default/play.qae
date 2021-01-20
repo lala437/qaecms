@@ -1,0 +1,87 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>{{$detail->title}}详情介绍-{{$detail->title}}在线观看-{{$detail->title}}迅雷下载 - {{$__WEBNAME__}}</title>
+    <meta name="keywords" content="{{$detail->title}}在线收看,{{$detail->title}}迅雷下载" />
+    <meta name="description" content="{{$detail->title}}剧情:{{$detail->title}}" />
+    @include('default.include')
+</head>
+
+<body>
+@include('default.head')
+<div class="container">
+    <div class="row">
+        <div class="stui-pannel stui-pannel-bg clearfix">
+       <!--自定义广告位-->
+        </div>
+        <div class="stui-pannel stui-pannel-bg clearfix">
+            <div class="stui-pannel-box">
+                <div class="stui-pannel-bd">
+                    <div class="stui-player col-pd">
+                        <div class="stui-player__video embed-responsive embed-responsive-16by9 clearfix">
+                            <div class="bofang_box">
+                                <iframe border="0" allowfullscreen="true" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"  src="{{$detail->play}}" width="100%" height="100%" marginWidth="0" frameSpacing="0" marginHeight="0" frameBorder="0" scrolling="no" vspale="0" noResize></iframe>
+                            </div>
+                        </div>
+                        <div style="margin-top: 5px">
+                            <a href='{{$detail->next}}' class="changebtn" style="width: 100px" target="_self">下一集</a>
+                            <a href='{{$detail->prev}}' class="changebtn" style="width: 100px" target="_self">上一集</a>
+                        </div>
+                        <div class="stui-player__detail detail">
+                            <h4 class="title">
+                                <a href="#">{{$detail->title}}</a>
+                            </h4>
+                            <p class="data margin-0">
+                                <span class="text-muted">{{$detail->type}}</span>
+                                <span class="split-line"></span>
+                                <span class="text-muted">{{$detail->area}}</span>
+                                <span class="split-line"></span>
+                                <span class="text-muted">{{$detail->year}}</span>
+                                <span class="split-line"></span>
+                                <a class="detail-more" href="javascript:;">详情
+                                    <i class="icon iconfont icon-moreunfold"></i></a>
+                            </p>
+                            <div class="detail-content" style="display: none;">
+                                <p class="data">
+                                    <span class="text-muted">{{$detail->actor}}</span>
+                                </p>
+                                <p class="desc margin-0">
+                                    <span class="left text-muted">简介：</span>{!! $detail->introduction !!}</p></div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="stui-pannel stui-pannel-bg clearfix">
+       <!--自定义广告位-->
+        </div>
+        <!-- 播放器-->
+        @foreach($detail->content as $player=>$playlist)
+            <div class="stui-pannel stui-pannel-bg clearfix">
+                <div class="stui-pannel-box">
+                    <div class="stui-pannel_hd">
+                        <div class="stui-pannel__head bottom-line clearfix">
+                            <span class="more text-muted pull-right">{{$player}}</span>
+                            <h3 class="title">{{$player}}</h3></div>
+                    </div>
+                    <div class="stui-pannel_bd col-pd clearfix sw">
+                            <ul class="stui-content__playlist column10 clearfix">
+                                @foreach($playlist as $play)
+                                    <li><a href='{{qae_play_now($detail->id,$play->playerid,$play->js)}}'  class="vplay {{$detail->now==$play->playerid.$play->js?"bs":""}}" style="width: 100px" target="_self"><span>{{$play->episode}}</span></a></li>
+                                @endforeach
+                            </ul>
+                    </div>
+                </div>
+            </div>
+    @endforeach
+        <!-- 播放列表-->
+    </div>
+</div>
+@include('default.foot')
+</body>
+</html>

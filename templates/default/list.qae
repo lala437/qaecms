@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>{{$__WEBNAME__}}-分类列表</title>
+    <meta name="keywords" content="{{$__SEOKEYWORDS__}}" />
+    <meta name="description" content="{{$__SEODESCRIPTION__}}" />
+    @include('default.include')
+</head>
+
+<body>
+@include('default.head')
+<div class="container">
+    <div class="row">
+        <div class="stui-pannel stui-pannel-bg clearfix">
+           <!--自定义广告位-->
+        </div>
+        <div class="stui-pannel stui-pannel-bg clearfix">
+            <div class="stui-pannel-box">
+                <div class="stui-pannel_hd">
+                    <div class="stui-pannel__head active bottom-line clearfix">
+                        <h3 class="title">
+                            <img src="{{qae_asset('default/images/icon_2.png')}}" />分类列表</h3>
+                    </div>
+                    <ul class="stui-screen__list type-slide bottom-line-dot clearfix">
+                        <li>
+                            <span class="text-muted">按分类</span></li>
+                        @foreach(qae_class_type("video") as $class)
+                        <li><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>$class->id,'cat'=>'all','page'=>1,'limit'=>35])}}" class="{{$class->id==$list->class?"active":""}}" target='_self'>{{$class->name}}</a></li>
+                        @endforeach
+                    </ul>
+                    <ul class="stui-screen__list type-slide bottom-line-dot clearfix">
+                        <li>
+                            <span class="text-muted">按类型</span></li>
+                        <li><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>$list->class,'cat'=>"all",'page'=>1,'limit'=>35])}}" class="{{$list->cat=="all"?"active":""}}"   target='_self'>全部</a></li>
+                        @foreach(qae_class_type("video",$list->class) as $cat)
+                            <li><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>$list->class,'cat'=>$cat->id,'page'=>1,'limit'=>35])}}" class="{{$cat->id==$list->cat?"active":""}}"   target='_self'>{{$cat->name}}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="stui-pannel_bd">
+                    <ul class="stui-vodlist clearfix">
+                        @foreach($list->data as $video)
+                        <li class="col-md-5 col-sm-3 col-xs-3">
+                            <div class="stui-vodlist__box">
+                                <a class="stui-vodlist__thumb img-shadow" href="{{route('qaecmsindex.detail',['type'=>"video",'id'=>$video->id])}}" title="{{$video->title}}">
+                                    <img src="{{$video->thumbnail}}" alt="{{$video->title}}">
+                                    <span class="play hidden-xs"></span>
+                                    <span class="pic-text text-right">{{is_numeric($video->note)?"更新到".$video->note."集":$video->note}}</span></a>
+                                <div class="stui-vodlist__detail">
+                                    <h4 class="title text-overflow">
+                                        <a href="{{route('qaecmsindex.detail',['type'=>"video",'id'=>$video->id])}}" title="{{$video->title}}">{{$video->title}}</a></h4>
+                                    <p class="text text-overflow text-muted hidden-xs">{{$video->actor}}</p></div>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+        @include('default.page')
+    </div>
+</div>
+ @include('default.foot')
+</body>
+
+</html>

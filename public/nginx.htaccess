@@ -1,0 +1,7 @@
+location = / {
+    try_files /qaecms_page/pc__index__pc.html /index.php?$query_string;
+}
+
+location / {
+    try_files $uri $uri/ /qaecms_page/$uri.html /qaecms_page/$uri.json /index.php?$query_string;
+}

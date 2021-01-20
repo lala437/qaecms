@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>{{$detail->title}}详情介绍-{{$detail->title}}在线观看-{{$detail->title}}迅雷下载 - {{$__WEBNAME__}}</title>
+    <meta name="keywords" content="{{$detail->title}}在线收看,{{$detail->title}}迅雷下载" />
+    <meta name="description" content="{{$detail->title}}剧情:{{$detail->title}}" />
+    <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+    @include('default.include')
+</head>
+
+<body>
+@include('default.head')
+<div class="container">
+    <div class="row">
+        <div class="stui-pannel stui-pannel-bg clearfix">
+            <!--自定义广告位-->
+        </div>
+        <div class="stui-pannel stui-pannel-bg clearfix">
+            <div class="stui-pannel-box clearfix">
+                <div class="stui-pannel_bd clearfix">
+                    <div class="col-md-wide-75 col-xs-1">
+                        <div class="stui-content clearfix">
+                            <div class="stui-content__thumb">
+                                <a class="stui-vodlist__thumb img-shadow v-thumb" href="{{route('qaecmsindex.play',['id'=>$detail->id])}}" title="{{$detail->title}}">
+                                    <img src="{{$detail->thumbnail}}" alt="{{$detail->title}}">
+                                    <span class="play active hidden-xs"></span>
+                                    <span class="pic-text text-right">{{$detail->note}}</span></a>
+                            </div>
+                            <div class="stui-content__detail">
+                                <h3 class="title">{{$detail->title}}</h3>
+                                <p class="data">
+                                    <span class="text-muted"> {{$detail->type->name}}</span>
+                                    <span class="split-line"></span>
+                                    <span class="text-muted">{{$detail->area}}</span>
+                                    <span class="split-line"></span>
+                                    <span class="text-muted">{{$detail->year}}</span>
+                                </p>
+                                <p class="desc detail">
+                                    <span class="left longtext"><span class="text-muted">简介:</span> {!! $detail->introduction !!}</span>
+                                </p>
+                                <div class="play-btn clearfix">
+                                    <div class="bshare-custom icon-medium-plus pull-right hidden-sm hidden-xs">
+                                        <a title="分享到QQ空间" class="bshare-qzone"></a>
+                                        <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+                                        <a title="分享到人人网" class="bshare-renren"></a>
+                                        <a title="分享到腾讯微博" class="bshare-qqmb"></a>
+                                        <a title="分享到网易微博" class="bshare-neteasemb"></a>
+                                        <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
+                                        <span class="BSHARE_COUNT bshare-share-count">0</span></div>
+                                     <a class="btn btn-primary" href="{{route('qaecmsindex.play',['id'=>$detail->id])}}">立即播放</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-wide-25 hidden-md hidden-sm hidden-xs">
+                        <div class="text-center" style="padding: 45px;">
+                            <p>
+                                {!! qae_qrcode(request()->url()) !!}
+                            </p>
+                            <p class="font-12">扫码用手机观看</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 详细信息-->
+        <div class="stui-pannel stui-pannel-bg clearfix">
+            <!--自定义广告位-->
+        </div>
+        @foreach($detail->content as $player=>$playlist)
+            <div class="stui-pannel stui-pannel-bg clearfix">
+                <div class="stui-pannel-box">
+                    <div class="stui-pannel_hd">
+                        <div class="stui-pannel__head bottom-line clearfix">
+                            <span class="more text-muted pull-right">{{$player}}</span>
+                            <h3 class="title">{{$player}}</h3></div>
+                    </div>
+                    <div class="stui-pannel_bd col-pd clearfix sw">
+                        <ul class="stui-content__playlist column10 clearfix">
+                            @foreach($playlist as $play)
+                                <li><a href='{{qae_play_now($detail->id,$play->playerid,$play->js)}}'  style="width: 100px" target="_self"><span>{{$play->episode}}</span></a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    @endforeach
+    </div>
+</div>
+@include('default.foot')
+</body>
+
+</html>
