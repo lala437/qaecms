@@ -36,6 +36,12 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <label class="layui-form-label">代理:</label>
+                <div class="layui-input-block">
+                    <input name="proxy" placeholder="请输入代理,格式:192.168.10.1:8081,留空则不使用" class="layui-input" lay-verType="tips"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">状态:</label>
                 <div class="layui-input-block">
                     <input type="radio" name="status" value="1" checked title="开启">
@@ -76,6 +82,7 @@
                     {field: 'name', align: "center", title: '名称'},
                     {field: 'api',  align: "center", title: 'API'},
                     {field: 'lasttime',  align: "center", title: '最近执行时间'},
+                    {field: 'proxy', align: "center", title: '代理'},
                     {field: 'status',  width:100,align: "center", title: '状态',templet:function (dd) {
                               let status = ['关闭','开启'];
                               return status[dd.status];
@@ -103,7 +110,7 @@
                     type: 1,
                     scrollbar: false,
                     title: type=='add'?'添加采集':"编辑采集",
-                    area: ['500px','350px'],
+                    area: ['500px','380px'],
                     offset: 'auto',
                     fixed: true,
                     content: $('#DataFormView').html(),
@@ -116,6 +123,7 @@
                                 name:data.name,
                                 method:data.method,
                                 api:data.api,
+                                proxy:data.proxy,
                                 status:data.status,
                             })
                         }
@@ -146,6 +154,7 @@
                                         name:data.name,
                                         method:{id:data.method,name:method},
                                         api:data.api,
+                                        proxy:data.proxy,
                                         status:data.status,
                                     })
                                 }

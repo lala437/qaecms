@@ -26,11 +26,15 @@
                 </div>
                 <ul class="stui-header__menu type-slide">
                    @foreach(qae_nav() as $nav)
-                    <li  class="">
-                    <a href="{{$nav->href}}">{{$nav->title}}</a>
-                    </li>
+                    <li  class=""><a href="{{$nav->href}}">{{$nav->title}}</a></li>
                     @endforeach
-                    {{--<li><a href="javascript:;" class="mac_history">历史记录</a></li>--}}
+                    <li><a href="javascript:;" class="qaecms_history">历史记录</a>
+                        <div class="autocomplete-suggestions" id="history" style="width: 200px;display: none">
+                            @foreach(qae_history(10) as $history)
+                                <div class="autocomplete-suggestion"><a href="{{$history->url}}">{{$history->title}}</a></div>
+                            @endforeach
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -77,6 +81,4 @@
             </ul>
         </div>
     </div>
-
-
 </div>

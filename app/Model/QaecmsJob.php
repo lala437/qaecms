@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class QaecmsJob extends Model
 {
-    protected $fillable = ['name', 'method', 'lasttime', 'status', 'api', 'bindstatus'];
+    protected $fillable = ['name', 'method', 'lasttime', 'status', 'api', 'bindstatus','proxy'];
 
     public function setApiAttribute($value)
     {

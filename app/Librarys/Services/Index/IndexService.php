@@ -8,7 +8,6 @@ use App\Librarys\Interfaces\Index\IndexInterface;
 use App\Model\QaecmsArticle;
 use App\Model\QaecmsComment;
 use App\Model\QaecmsCommentConfig;
-use App\Model\QaecmsPlayer;
 use App\Model\QaecmsType;
 use App\Model\QaecmsVideo;
 use App\Model\QaecmsWebConfig;
@@ -48,10 +47,13 @@ class IndexService implements IndexInterface
             $cat_id = QaecmsType::where(['pid' => $class])->pluck('id')->toArray();
             array_unshift($cat_id, $class);
             if ($type == "video") {
+                $shost = QaecmsVideo::select(['shost'])->first();
                 $obj = QaecmsVideo::where(['status' => 1])->when($this->user, function ($query) {
                     return $query->whereIn('vip', [0, $this->user->vip]);
                 })->when(!$this->user, function ($query) {
                     return $query->where(['vip' => 0]);
+                })->when($shost,function ($query)use ($shost){
+                    return $query->where(['shost'=>$shost->shost]);
                 })->whereIn('type', $cat_id);
             } else {
                 $obj = QaecmsArticle::where(['status' => 1])->when($this->user, function ($query) {
@@ -63,10 +65,13 @@ class IndexService implements IndexInterface
         } else {
             $cat_id = $cat;
             if ($type == "video") {
+                $shost = QaecmsVideo::select(['shost'])->first();
                 $obj = QaecmsVideo::where(['status' => 1])->when($this->user, function ($query) {
                     return $query->whereIn('vip', [0, $this->user->vip]);
                 })->when(!$this->user, function ($query) {
                     return $query->where(['vip' => 0]);
+                })->when($shost,function ($query)use ($shost){
+                    return $query->where(['shost'=>$shost->shost]);
                 })->where(['type' => $cat_id]);
             } else {
                 $obj = QaecmsArticle::where(['status' => 1])->when($this->user, function ($query) {
@@ -114,8 +119,8 @@ class IndexService implements IndexInterface
     public function Play($id)
     {
         $type = "video";
-        $playid = $id;
         $idarr = array_filter(explode('-', $id));
+        $playid = $id;
         $id = $idarr[0];
         $playerid = $idarr[1] ?? null;
         $js = $idarr[2] ?? null;
@@ -131,8 +136,9 @@ class IndexService implements IndexInterface
             $detail['next'] = qae_play_prevornext($id . '-' . $play['playerid'] . '-' . $play['next']);
             $detail['play'] = qae_playurl($play['playurl'],$detail['next']);
             $detail['type'] = $detail['type']['name'];
-            qae_play_history($detail['title'],$playid);
-            return view($this->template . '.play', ['detail' => arrayTransitionObject($detail)]);
+            qae_play_history($detail['title'],$id,$playid);
+            $samesource = QaecmsVideo::where(['title'=>$detail['title']])->where(['status'=>1])->get();
+            return view($this->template . '.play', ['detail' => arrayTransitionObject($detail),'samesource'=>$samesource]);
         }
         return redirect("/");
     }

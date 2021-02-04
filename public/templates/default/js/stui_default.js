@@ -224,6 +224,14 @@ $(document).ready(function () {
     stui.common.collapse();
     stui.common.autocomplete();
     stui.common.scrolltop();
+    $('.qaecms_history').hover(function () {
+        $('#history').show();
+    })
+    $('#history').hover(function () {
+        $(this).show();
+    },function () {
+        $(this).hide();
+    })
     $('#submit').click(function () {
         let wd = $('#wd').val();
         if(wd==""){

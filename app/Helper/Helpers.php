@@ -1,13 +1,19 @@
 <?php
 
 if (!function_exists('curl_get')) {
-    function curl_get($url)
+    function curl_get($url,$proxy="")
     {
         $testurl = $url;
         $conputer_user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36";
         $mobile_user_agent = "Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $testurl);
+        //代理
+        if($proxy){
+            $proxy = array_filter(explode(":",$proxy));
+            curl_setopt($ch,CURLOPT_PROXY,$proxy[0]);
+            curl_setopt($ch,CURLOPT_PROXYPORT,$proxy[1]);
+        }
         //参数为1表示传输数据，为0表示直接输出显示。
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

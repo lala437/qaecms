@@ -32,6 +32,7 @@
         <div class="stui-pannel stui-pannel-bg clearfix">
           {!! qae_ad('index') !!}
         </div>
+
         <div class="stui-pannel stui-pannel-bg clearfix">
             <div class="stui-pannel-box clearfix">
                 <div class="col-lg-wide-75 col-xs-1 padding-0">

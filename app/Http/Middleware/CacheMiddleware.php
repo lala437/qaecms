@@ -56,7 +56,7 @@ class CacheMiddleware
         if ($request->getQueryString()) {
             return false;
         }
-        $cachestatus = QaecmsCacheConfig::where(['arg2'=>'cache'])->first()->status??0;
+        $cachestatus = QaecmsCacheConfig::where(['id' => 1])->first()->status??0;
         if ($cachestatus == 1) {
             return $request->isMethod('GET') && $response->getStatusCode() == 200;
         }

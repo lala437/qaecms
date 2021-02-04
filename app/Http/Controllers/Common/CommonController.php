@@ -16,15 +16,19 @@ class CommonController extends Controller
     private $faildurl;
     private $header = ['User-Agent' => 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36'];
 
-    public function MuliteRequest($urlarr)
+    public function MuliteRequest($urlarr,$proxy=null)
     {
         $client = new Client();
         $this->mulitedata = [];
         $this->faildurl = [];
         $totalPageCount = count($urlarr);
-        $requests = function ($total) use ($client, $urlarr) {
+        $requests = function ($total) use ($client, $urlarr,$proxy) {
             foreach ($urlarr as $url) {
-                yield function () use ($client, $url) {
+                yield function () use ($client, $url,$proxy) {
+                    if(filled($proxy)){
+                        $param = ['http'  => 'tcp://'.$proxy,'https' => 'tcp://'.$proxy];
+                        return $client->getAsync($url, ['headers' =>$this->header ,'timeout' => 5,'verify' => false,'proxy'=>$param]);
+                    }
                     return $client->getAsync($url, ['headers' =>$this->header ,'timeout' => 5,'verify' => false]);
                 };
             }
@@ -46,7 +50,7 @@ class CommonController extends Controller
         return ['data' => $this->mulitedata, 'failurl' => $this->faildurl];
     }
 
-    public function MuliteDown($urlarr)
+    public function MuliteDown($urlarr,$proxy=null)
     {
         $urlarr = qae_parse_url($urlarr);
         $client = new Client();

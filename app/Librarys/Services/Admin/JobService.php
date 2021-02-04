@@ -57,7 +57,7 @@ class JobService implements JobInterface
         $data = $this->request->input('data');
         $job = QaecmsJob::find($data['id']);
         $api = $job->api;
-        $content = qae_xml_parse(curl_get($api));
+        $content = qae_xml_parse(curl_get($api,$job->proxy));
         $types = (array)$content->class->ty;
         unset($types['@attributes']);
         $faild = [];
@@ -76,8 +76,11 @@ class JobService implements JobInterface
         }
         if (count($success) > 0) {
             $job->update(['bindstatus' => 1]);
+            return response(['status' => 200, 'faild' => $faild]);
+        }else{
+            return response(['status' => 400, 'faild' => $faild]);
         }
-        return response(['status' => 200, 'faild' => $faild]);
+
     }
 
 
@@ -121,11 +124,9 @@ class JobService implements JobInterface
     {
         $id = $this->request->input('id');
         $job = QaecmsJob::find($id);
-        $type = $job->method;
-        $api = $job->api;
         $bindstatus = $job->bindstatus;
         if($bindstatus){
-            $method = new MethodService($type, $api);
+            $method = new MethodService($job);
             $method->Method();
             $job->update(['lasttime' => date("Y-m-d H:i:s", time())]);
         }

@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{qae_asset('default/css/stui_default.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{qae_asset('default/css/stui_custom.css')}}" type="text/css" />
 <script src="{{qae_asset('default/js/jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{qae_asset('default/js/stui_default.js')}}"></script>
+<script type="text/javascript" src="{{qae_asset('default/js/stui_default.js')}}?v=1.0"></script>
 <style>
     .hidepanel{
       display: none;

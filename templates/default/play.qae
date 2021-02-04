@@ -28,11 +28,18 @@
                                 <iframe border="0" allowfullscreen="true" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"  src="{{$detail->play}}" width="100%" height="100%" marginWidth="0" frameSpacing="0" marginHeight="0" frameBorder="0" scrolling="no" vspale="0" noResize></iframe>
                             </div>
                         </div>
+                        <div class="stui-player__detail detail">
+                            <div class="stui-content__playlist column10">
+                                <select name="" id="source" class="selectcl" onchange="">
+                                    @foreach($samesource as $source)
+                                    <option value="{{$source->id}}" {{$source->id==$detail->id?"selected":""}}>片源{{$loop->index+1}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         <div style="margin-top: 5px">
                             <a href='{{$detail->next}}' class="changebtn" style="width: 100px" target="_self">下一集</a>
                             <a href='{{$detail->prev}}' class="changebtn" style="width: 100px" target="_self">上一集</a>
                         </div>
-                        <div class="stui-player__detail detail">
                             <h4 class="title">
                                 <a href="#">{{$detail->title}}</a>
                             </h4>
@@ -84,4 +91,9 @@
 </div>
 @include('default.foot')
 </body>
+<script>
+    $('#source').change(function () {
+        window.location = "/play/"+$(this).val()+".html"
+    })
+</script>
 </html>

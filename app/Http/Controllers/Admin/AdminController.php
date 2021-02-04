@@ -56,7 +56,7 @@ class AdminController extends Controller
         $view['newvideolist'] = QaecmsVideo::offset(0)->limit(15)->orderBy('last', 'desc')->get();
         $view['newarticlelist'] = QaecmsArticle::offset(0)->limit(15)->orderBy('created_at', 'desc')->get();
         $view['newuserlist'] = QaecmsUser::offset(0)->limit(15)->orderBy('created_at', 'desc')->get();
-        $view['version'] = $ver->vn;
+        $view['version'] = $ver->vn."({$ver->version})";
         return view('admin.page.dashboard.workspace', $view);
     }
 

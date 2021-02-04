@@ -156,15 +156,13 @@
         <!-- 底部 -->
         <div class="layui-footer layui-text">
             copyright © 2020 <a href="http://www.qaecms.com" target="_blank">快简易CMS</a> all rights reserved.
-            <span class="pull-right">Version 1.0</span>
+            <span class="pull-right"></span>
         </div>
     </div>
 
     <!-- 加载动画 -->
     <div class="page-loading">
-        <div class="ball-loader">
-            <span></span><span></span><span></span><span></span>
-        </div>
+        <div class="rubik-loader"></div>
     </div>
 @endsection
 @section('js')

@@ -82,6 +82,7 @@ class LoginController extends Controller
             event(new AdminLoginEvent($this->guard()->user()));//记录登录事件
             return ['status' => 200, 'msg' => '登录成功'];
         }
+        return ['status' => 400, 'msg' => '账号或者密码错误'];
     }
 
 

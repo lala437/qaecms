@@ -202,9 +202,16 @@
                             layer.msg(res.msg)
                         }
                     },
-                    error: function () {
+                    error: function (data) {
                         $('#captchaPic').attr('src',captchaUrl + '=' + (new Date).getTime());
-                        layer.msg('登录失败')
+                        if(data.status==422){
+                            let error = data.responseJSON.errors;
+                            if(error.hasOwnProperty('captcha')){
+                                layer.msg(error.captcha[0])
+                            }
+                        }else{
+                            layer.msg("登录失败")
+                        }
                     }
                 });
                 return false;

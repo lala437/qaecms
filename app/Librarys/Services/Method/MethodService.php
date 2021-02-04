@@ -14,12 +14,14 @@ class MethodService
 
     private $api;
     private $method;
+    private $proxy;
     private $videomodel;
 
-    public function __construct($method = "video", $api = "http://cj.bajiecaiji.com/inc/api.php")
+    public function __construct($job)
     {
-        $this->api = $api;
-        $this->method = $method;
+        $this->api = $job->api;
+        $this->method = $job->method;
+        $this->proxy = $job->proxy;
         $this->videomodel = new QaecmsVideo();
     }
 
@@ -35,7 +37,7 @@ class MethodService
     private function ApiVideoCollect()
     {
         $load = new Loading(Loading::LOAD_TYPE_STRAIGHT);
-        $res = curl_get($this->api . "?" . http_build_query(['ac' => 'list']));
+        $res = curl_get($this->api . "?" . http_build_query(['ac' => 'list']),$this->proxy);
         if (is_string($res)) {
             $data = qae_xml_parse($res);
             $attributes['page'] = (string)$data->list->attributes()->page;
@@ -59,7 +61,7 @@ class MethodService
                 $retry = 0;
                 do {
                     $retry++;
-                    $res = $common->MuliteRequest($urlarr);
+                    $res = $common->MuliteRequest($urlarr,$this->proxy);
                     $datas = array_merge($datas, $res['data']);
                     $urlarr = $res['failurl'];
                     if (count($urlarr) == 0 || $retry == 4) {
@@ -115,7 +117,7 @@ class MethodService
     private function CliVideoCollect()
     {
         echo date('Y-m-d H:i:s', time()) . "开启执行采集\n";
-        $res = curl_get($this->api . "?" . http_build_query(['ac' => 'list']));
+        $res = curl_get($this->api . "?" . http_build_query(['ac' => 'list']),$this->proxy);
         if (is_string($res)) {
             $data = qae_xml_parse($res);
             $attributes['page'] = (string)$data->list->attributes()->page;
@@ -136,7 +138,7 @@ class MethodService
                 $retry = 0;
                 do {
                     $retry++;
-                    $res = $common->MuliteRequest($urlarr);
+                    $res = $common->MuliteRequest($urlarr,$this->proxy);
                     $datas = array_merge($datas, $res['data']);
                     $urlarr = $res['failurl'];
                     if (count($urlarr) == 0 || $retry == 4) {

@@ -26,7 +26,10 @@ function qae_video($typeid, $vip = 0, $order = "hot", $page = 0, $limit = 10)
     } else {
         $type = [$typeid];
     }
-    $videos = \App\Model\QaecmsVideo::whereIn('type', $type)->where(['vip' => $vip])->where(['status' => 1])->orderBy($order, "desc")->offset($page)->limit($limit)->get();
+    $shost = \App\Model\QaecmsVideo::select('shost')->first();
+    $videos = \App\Model\QaecmsVideo::whereIn('type', $type)->where(['vip' => $vip])->where(['status' => 1])->orderBy($order, "desc")->when($shost,function ($query)use ($shost){
+        return $query->where(['shost'=>$shost->shost]);
+    })->offset($page)->limit($limit)->get();
     return $videos;
 }
 
@@ -348,20 +351,18 @@ function qae_verify_comment($data)
     return ['content' => $content];
 }
 
-function qae_play_history($title, $id)
+function qae_play_history($title, $id,$playid)
 {
     $oldhistory = \Illuminate\Http\Request::capture()->cookie('history', null);
     $oldarr = [];
     if ($oldhistory) {
         $oldarr = json_decode($oldhistory, 1);
     }
-    $newarr = ['title' => $title, 'url' => route('qaecmsindex.play', ['id' => $id])];
-    $key = array_search($newarr,$oldarr);
-    if($key!==false){
-        unset($oldarr[$key]);
-        $oldarr = array_values($oldarr);
+    $newarr = ['title' => $title, 'url' => route('qaecmsindex.play', ['id' => $playid])];
+    if(array_key_exists($id,$oldarr)){
+        array_except($oldarr,$id);
     }
-    array_unshift($oldarr, $newarr);
+    $oldarr = array_prepend($oldarr,$newarr,$id);
     if (count($oldarr) > 20) {
         array_splice($oldarr, 20);
     }
