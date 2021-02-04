@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class QaecmsCommentConfig extends Model
 {
-    protected $fillable = ['arg1','status'];
+    protected $fillable = ['id','arg1','status'];
 }

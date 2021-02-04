@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class QaecmsSeoConfig extends Model
 {
     //数据库字段白名单
-    protected $fillable = ['keywords','picalt','description','nofollow'];
+    protected $fillable = ['id','keywords','picalt','description','nofollow'];
 }

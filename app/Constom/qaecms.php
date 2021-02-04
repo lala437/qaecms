@@ -1,5 +1,5 @@
 <?php
-//静态资源
+//静态资源1111
 function qae_asset($path = '')
 {
     return asset("/templates" . ($path ? DIRECTORY_SEPARATOR . ltrim($path, DIRECTORY_SEPARATOR) : $path));
