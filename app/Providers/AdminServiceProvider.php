@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Librarys\Services\Admin\AdService;
 use App\Librarys\Services\Admin\AnnexService;
 use App\Librarys\Services\Admin\CacheService;
+use App\Librarys\Services\Admin\CollectService;
 use App\Librarys\Services\Admin\CommentService;
 use App\Librarys\Services\Admin\DataToMysqlService;
 use App\Librarys\Services\Admin\JobService;
@@ -77,6 +78,9 @@ class AdminServiceProvider extends ServiceProvider
         });
         $this->app->bind('App\Librarys\Interfaces\Admin\CommentInterface', function ($app) {
             return new CommentService(Request::capture());
+        });
+        $this->app->bind('App\Librarys\Interfaces\Admin\CollectInterface', function ($app) {
+            return new CollectService(Request::capture());
         });
     }
 

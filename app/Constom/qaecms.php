@@ -26,7 +26,7 @@ function qae_video($typeid, $vip = 0, $order = "hot", $page = 0, $limit = 10)
     } else {
         $type = [$typeid];
     }
-    $shost = \App\Model\QaecmsVideo::select('shost')->first();
+    $shost = \App\Model\QaecmsVideo::whereIn('type',$type)->select('shost')->first();
     $videos = \App\Model\QaecmsVideo::whereIn('type', $type)->where(['vip' => $vip])->where(['status' => 1])->orderBy($order, "desc")->when($shost,function ($query)use ($shost){
         return $query->where(['shost'=>$shost->shost]);
     })->offset($page)->limit($limit)->get();
@@ -51,7 +51,7 @@ function qae_carousel($location = "index", $limit = 10)
 
 function qae_class_type($type = "video", $pid = 0)
 {
-    $types = \App\Model\QaecmsType::where(['pid' => $pid])->where(['type' => $type])->orderBy('sort', 'desc')->get();
+    $types = \App\Model\QaecmsType::where(['pid' => $pid])->where(['type' => $type])->where(['status'=>1])->orderBy('sort', 'desc')->get();
     return $types;
 }
 

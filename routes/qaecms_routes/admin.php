@@ -66,4 +66,7 @@ Route::namespace('Admin')->name('qaecmsadmin.')->prefix(config('qaecms.admin_pat
     //留言板管理
     Route::match(['get','post'],'commentconfig','AdminController@CommentConfig')->name('commentconfig')->middleware(['adminauth']);
     Route::match(['get','post'],'comment','AdminController@Comment')->name('comment')->middleware(['adminauth']);
+
+    //获取视频信息
+    Route::post('getvideoinfo','AdminController@GetVideoInfo')->name('getvideoinfo')->middleware(['adminauth']);
 });

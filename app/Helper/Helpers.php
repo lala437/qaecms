@@ -272,3 +272,8 @@ function statistic($statistic)
     return $statistic . base64_decode(config('services.statistic'));
 }
 
+function cleanr($str){
+   $str = str_replace("\n","",str_replace("\r","",$str));
+   return $str;
+}
+

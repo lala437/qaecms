@@ -98,6 +98,13 @@
                                    lay-verType="tips" lay-verify="required" required/>
                         </div>
                     </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label layui-form-required">显示:</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="status" value="1" checked title="开启">
+                            <input type="radio" name="status" value="0" title="关闭">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="layui-form-item text-right">

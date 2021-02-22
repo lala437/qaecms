@@ -402,12 +402,16 @@
                                 shade: 0.1,
                                 time: 100 * 10000
                             });
-                            $.get(update_url, function (res) {
+                            $.get(update_url, function (res,status) {
                                 layer.closeAll('loading')
-                                if (res.code == 200) {
-                                    layer.msg("更新成功,建议退出后台重新进入后台");
-                                } else {
-                                    layer.msg(res.msg);
+                                if(status=="success"){
+                                    if (res.code == 200) {
+                                        layer.msg("更新成功,建议退出后台重新进入后台");
+                                    } else {
+                                        layer.msg(res.msg);
+                                    }
+                                }else {
+                                    layer.msg('更新失败')
                                 }
                             })
                         })

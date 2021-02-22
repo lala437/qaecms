@@ -73,9 +73,11 @@
             <input name="id" type="hidden"/>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">标题:</label>
-                <div class="layui-input-block">
-                    <input name="title" placeholder="请输入文章标题" class="layui-input" lay-verType="tips"
-                           lay-verify="required" required/>
+                <div class="layui-input-inline">
+                    <input name="title" placeholder="请输入视频标题" class="layui-input" lay-verType="tips" lay-verify="required" required/>
+                </div>
+                <div class="layui-input-inline">
+                    <button type="button" class="layui-btn layui-btn-normal" id="getvideoinfo">获取信息</button>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -87,14 +89,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">简介:</label>
                 <div class="layui-input-block">
-                    <textarea name="introduction" class="layui-textarea" id="introduction" lay-verType="tips"
-                              lay-verify="required"></textarea>
+                    <textarea name="introduction"  class="layui-textarea" id="introduction" lay-verType="tips" lay-verify="required"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">关键字:</label>
                 <div class="layui-input-block">
-                    <input name="seokey" placeholder="请输入SEO关键字" class="layui-input" lay-verType="tips"
+                    <input name="seokey" placeholder="请输入SEO关键字" value="高清视频,在线观看" class="layui-input" lay-verType="tips"
                            lay-verify="required" required/>
                 </div>
             </div>
@@ -106,92 +107,92 @@
                             <img class="layui-upload-img" id="thumbnailimg">
                             <p id="thumbnail"></p>
                         </div>
-                        <input type="hidden" name="thumbnail">
                         <button type="button" class="layui-btn" id="uploadthumbnail">上传图片</button>
                     </div>
+                    <input type="text" name="thumbnail" placeholder="最终以此地址为准" class="layui-input" style="margin-top: 10px">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">资源ID:</label>
                 <div class="layui-input-block">
-                    <input name="sid" placeholder="请输入资源ID" class="layui-input" lay-verType="tips" lay-verify="required"
+                    <input name="sid" placeholder="请输入资源ID" value="{{rand(9,10000)}}" class="layui-input" lay-verType="tips" lay-verify="required"
                            required/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">资源分类ID:</label>
                 <div class="layui-input-block">
-                    <input name="stid" placeholder="请输入资源分类ID" class="layui-input" lay-verType="tips"
+                    <input name="stid" placeholder="请输入资源分类ID" value="999" class="layui-input" lay-verType="tips"
                            lay-verify="required" required/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">资源分类名称:</label>
                 <div class="layui-input-block">
-                    <input name="stype" placeholder="请输入资源分类名称" class="layui-input" lay-verType="tips"
+                    <input name="stype" placeholder="请输入资源分类名称"  class="layui-input" lay-verType="tips"
                            lay-verify="required" required/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">语言:</label>
                 <div class="layui-input-block">
-                    <input name="lang" placeholder="请输入语言" class="layui-input" lay-verType="tips" lay-verify="required"
+                    <input name="lang" placeholder="请输入语言" value="中文" class="layui-input" lay-verType="tips" lay-verify="required"
                            required/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">区域:</label>
                 <div class="layui-input-block">
-                    <input name="area" placeholder="请输入区域" class="layui-input" lay-verType="tips" lay-verify="required"
+                    <input name="area" placeholder="请输入区域" value="中国" class="layui-input" lay-verType="tips" lay-verify="required"
                            required/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">年份:</label>
                 <div class="layui-input-block">
-                    <input name="year" id="year" placeholder="请输入年份" class="layui-input" lay-verType="tips"
+                    <input name="year" id="year" placeholder="请输入年份"  value="{{date('Y')}}" class="layui-input" lay-verType="tips"
                            lay-verify="required" required/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">清晰度:</label>
                 <div class="layui-input-block">
-                    <input name="note" placeholder="请输入清晰度" class="layui-input" lay-verType="tips" lay-verify="required"
+                    <input name="note" placeholder="请输入清晰度" value="HD" class="layui-input" lay-verType="tips" lay-verify="required"
                            required/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">评分:</label>
                 <div class="layui-input-block">
-                    <input name="score" placeholder="请输入评分" class="layui-input" lay-verType="tips" lay-verify="required"
+                    <input name="score" placeholder="请输入评分" value="{{rand(1,9)}}" class="layui-input" lay-verType="tips" lay-verify="required"
                            required/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">演员:</label>
                 <div class="layui-input-block">
-                    <input name="actor" placeholder="请输入演员" class="layui-input" lay-verType="tips" lay-verify="required"
+                    <input name="actor" placeholder="请输入演员" value="好多演员" class="layui-input" lay-verType="tips" lay-verify="required"
                            required/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">导演:</label>
                 <div class="layui-input-block">
-                    <input name="director" placeholder="请输入导演" class="layui-input" lay-verType="tips"
+                    <input name="director" placeholder="请输入导演" value="好多导演" class="layui-input" lay-verType="tips"
                            lay-verify="required" required/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">来源host:</label>
                 <div class="layui-input-block">
-                    <input name="shost" placeholder="请输入来源host" class="layui-input" lay-verType="tips"
+                    <input name="shost" placeholder="请输入来源host" value="http://doc.qaecms.com" class="layui-input" lay-verType="tips"
                            lay-verify="required" required/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">最后更新时间:</label>
                 <div class="layui-input-block">
-                    <input name="last" id="last" placeholder="最后更新时间" class="layui-input" lay-verType="tips"
+                    <input name="last" id="last" placeholder="最后更新时间" value="{{date('Y-m-d H:i:s')}}" class="layui-input" lay-verType="tips"
                            lay-verify="required" required/>
                 </div>
             </div>
@@ -205,7 +206,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">作者:</label>
                 <div class="layui-input-block">
-                    <input name="editor" placeholder="请输入作者名称" class="layui-input" lay-verType="tips"
+                    <input name="editor" placeholder="请输入作者名称" value="admin" class="layui-input" lay-verType="tips"
                            lay-verify="required" required/>
                 </div>
             </div>
@@ -228,7 +229,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">浏览积分:</label>
                 <div class="layui-input-block">
-                    <input name="integral" placeholder="请输入浏览所需积分,默认为0" class="layui-input" lay-verType="tips"
+                    <input name="integral" placeholder="请输入浏览所需积分,默认为0" value="0" class="layui-input" lay-verType="tips"
                            lay-verify="required" required/>
                 </div>
             </div>
@@ -484,6 +485,29 @@
                             skin: 'tagsinput-default',
                             autocomplete_url: '../../json/tagsInput.json'
                         });
+                        $('#getvideoinfo').click(function () {
+                            layer.load(2)
+                            let key = $('input[name=title]').val();
+                            let url = "{{route('qaecmsadmin.getvideoinfo')}}"
+                            admin.req(url, {key:key}, function (res) {
+                                layer.closeAll('loading');
+                                if(res.status==200){
+                                    let data  = res.data
+                                   form.val("DataForm",{
+                                       title: data.title,
+                                       stype: data.stype,
+                                       area: data.area,
+                                       actor: data.actor,
+                                       director: data.director,
+                                       introduction: data.introduction,
+                                       thumbnail: data.thumbnail,
+                                   })
+                                    $('#thumbnailimg').attr('src', data.thumbnail)
+                                }else{
+                                    layer.msg('未找到相关资源,请手动添加')
+                                }
+                            }, 'post')
+                        })
                     }
                 });
             }
@@ -583,6 +607,8 @@
                     })
                 })
             })
+
         });
+
     </script>
 @endsection

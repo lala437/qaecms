@@ -125,7 +125,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">浏览积分:</label>
                 <div class="layui-input-block">
-                    <input name="integral" placeholder="请输入浏览所需积分,默认为0" class="layui-input" lay-verType="tips" lay-verify="required" required/>
+                    <input name="integral" placeholder="请输入浏览所需积分,默认为0" value="0" class="layui-input" lay-verType="tips" lay-verify="required" required/>
                 </div>
             </div>
             <div class="layui-form-item text-right">

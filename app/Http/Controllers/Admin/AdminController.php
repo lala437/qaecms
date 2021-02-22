@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Librarys\Interfaces\Admin\AdInterface;
 use App\Librarys\Interfaces\Admin\AnnexInterface;
 use App\Librarys\Interfaces\Admin\CacheInterface;
+use App\Librarys\Interfaces\Admin\CollectInterface;
 use App\Librarys\Interfaces\Admin\CommentInterface;
 use App\Librarys\Interfaces\Admin\DataToMysqlInterface;
 use App\Librarys\Interfaces\Admin\JobInterface;
@@ -183,6 +184,10 @@ class AdminController extends Controller
     public function CommentConfig(CommentInterface $comment)
     {
         return $comment->CommentConfig();
+    }
+
+    public function GetVideoInfo(CollectInterface $collect){
+        return $collect->GetVideoInfo();
     }
 
 }

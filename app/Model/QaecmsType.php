@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class QaecmsType extends Model
 {
-    protected $fillable = ['pid','type','name','sort'];
+    protected $fillable = ['pid','type','name','sort','status'];
 
     public function article()
     {

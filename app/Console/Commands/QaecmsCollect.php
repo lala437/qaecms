@@ -41,11 +41,9 @@ class QaecmsCollect extends Command
     {
         $joblist = QaecmsJob::where(['status' => 1])->get();
         foreach ($joblist as $job) {
-            $type = $job->method;
-            $api = $job->api;
             $bindstatus = $job->bindstatus;
             if ($bindstatus) {
-                $method = new MethodService($type, $api);
+                $method = new MethodService($job);
                 $method->Method();
                 $job->update(['lasttime' => date("Y-m-d H:i:s", time())]);
             }
