@@ -39,6 +39,12 @@ function qae_video($typeid, $vip = 0, $order = "hot", $page = 0, $limit = 10)
 function qae_nav($pid = 0)
 {
     $navs = \App\Model\QaecmsNav::where(['pid' => $pid])->where(['status' => 1])->orderBy('sort', 'desc')->get();
+    $singles = \App\Model\QaecmsSinglePage::where(['status'=>1])->select(['title','name'])->get();
+    if(filled($singles)){
+        foreach ($singles as $single){
+           $navs[] = (object)['title'=>$single->title,'href'=>route('qaecmsindex.single',['name'=>$single->name])];
+        }
+    }
     return $navs;
 }
 
@@ -368,4 +374,6 @@ function qae_play_history($title, $id,$playid)
     }
     setcookie('history', json_encode($oldarr), time() + 86400,'/');
 }
+
+
 

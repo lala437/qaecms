@@ -12,6 +12,11 @@ Route::namespace('Index')->name('qaecmsindex.')->middleware(['webswitch','templa
     Route::match(['get','post'],'comments','IndexController@Comments')->name('comments');
 });
 
+Route::namespace('Index')->name('qaecmsindex.')->middleware(['webswitch'])->group(function () {
+    Route::get('single/{name}.html','IndexController@SinglePage')->name('single');
+});
+
+
 Route::namespace('Index')->prefix(config('qaecms.user_path'))->middleware(['webswitch'])->name('qaecmsindex.')->group(function () {
 
     //登录

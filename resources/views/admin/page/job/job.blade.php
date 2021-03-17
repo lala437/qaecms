@@ -32,7 +32,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">API:</label>
                 <div class="layui-input-block">
-                    <input name="api" placeholder="请输入采集API,目前只支持xml格式接口" class="layui-input" lay-verType="tips" lay-verify="required" required/>
+                    <input name="api" placeholder="请输入采集API,目前支持xml/json" class="layui-input" lay-verType="tips" lay-verify="required" required/>
                 </div>
             </div>
             <div class="layui-form-item">

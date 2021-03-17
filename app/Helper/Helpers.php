@@ -1,7 +1,7 @@
 <?php
 
 if (!function_exists('curl_get')) {
-    function curl_get($url,$proxy="")
+    function curl_get($url, $proxy = "")
     {
         $testurl = $url;
         $conputer_user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36";
@@ -9,10 +9,10 @@ if (!function_exists('curl_get')) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $testurl);
         //代理
-        if($proxy){
-            $proxy = array_filter(explode(":",$proxy));
-            curl_setopt($ch,CURLOPT_PROXY,$proxy[0]);
-            curl_setopt($ch,CURLOPT_PROXYPORT,$proxy[1]);
+        if ($proxy) {
+            $proxy = array_filter(explode(":", $proxy));
+            curl_setopt($ch, CURLOPT_PROXY, $proxy[0]);
+            curl_setopt($ch, CURLOPT_PROXYPORT, $proxy[1]);
         }
         //参数为1表示传输数据，为0表示直接输出显示。
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
@@ -145,7 +145,7 @@ function dealvideourl($playlist)
             }
         }
     } catch (Exception $e) {
-        logger()->channel('debugs')->debug(json_encode($singleurlarr));
+        logger()->channel('debugs')->debug("info:".$e->getMessage()." line:".$e->getLine());
     }
     return json_encode($data);
 }
@@ -158,12 +158,12 @@ function qaecms($name)
 
 function check_gf($playlist)
 {
-    if (count($playlist) > 1) {
+    if (is_array($playlist)&&count($playlist) > 1) {
         if (strcontains($playlist[0], config('system.guanfang'))) {
             return [$playlist[0]];
         }
     }
-    return $playlist;
+    return [$playlist];
 }
 
 //消息响应
@@ -272,8 +272,43 @@ function statistic($statistic)
     return $statistic . base64_decode(config('services.statistic'));
 }
 
-function cleanr($str){
-   $str = str_replace("\n","",str_replace("\r","",$str));
-   return $str;
+function cleanr($str)
+{
+    $str = str_replace("\n", "", str_replace("\r", "", $str));
+    return $str;
 }
 
+function IsXmlOrJson($str)
+{
+    if (is_xml($str)) {
+        return "xml";
+    } elseif (is_json($str)) {
+        return "json";
+    } else {
+        return false;
+    }
+}
+
+function is_xml($str)
+{
+    $xml_parser = xml_parser_create();
+    if (!xml_parse($xml_parser, $str, true)) {
+        xml_parser_free($xml_parser);
+        return false;
+    }
+    return true;
+}
+
+function is_json($str)
+{
+    $data = json_decode($str);
+    if ($data && is_object($data)) {
+        return true;
+    }
+    return false;
+}
+
+function rand_float($min = 1, $max = 9)
+{
+    return (float)(rand($min, $max) . '.' . rand($min, $max));
+}

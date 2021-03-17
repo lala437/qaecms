@@ -77,6 +77,7 @@
                             <dd><a lay-href="{{route('qaecmsadmin.type')}}">分类管理</a></dd>
                             <dd><a lay-href="{{route('qaecmsadmin.article')}}">文章管理</a></dd>
                             <dd><a lay-href="{{route('qaecmsadmin.video')}}">视频管理</a></dd>
+                            <dd><a lay-href="{{route('qaecmsadmin.singlepage')}}">单页管理</a></dd>
 {{--                            <dd><a lay-href="{{route('qaecmsadmin.annex')}}">附件管理</a></dd>--}}
                         </dl>
                     </li>

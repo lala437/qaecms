@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Librarys\Interfaces\Index\IndexInterface;
 use App\Librarys\Interfaces\Index\PayInterface;
 use App\Librarys\Interfaces\Index\UserInterface;
+use App\Model\QaecmsSinglePage;
 
 class IndexController extends Controller
 {
@@ -65,5 +66,11 @@ class IndexController extends Controller
     public function Comments(IndexInterface $index)
     {
         return $index->Comments();
+    }
+
+    public function SinglePage($name)
+    {
+        $html = QaecmsSinglePage::where(['name'=>$name])->first()->content;
+        return htmlspecialchars_decode($html);
     }
 }

@@ -17,6 +17,7 @@ use App\Librarys\Interfaces\Admin\PayInterface;
 use App\Librarys\Interfaces\Admin\PlayerInterface;
 use App\Librarys\Interfaces\Admin\SearchInterface;
 use App\Librarys\Interfaces\Admin\ShopInterface;
+use App\Librarys\Interfaces\Admin\SinglePageInterface;
 use App\Librarys\Interfaces\Admin\SystemInterface;
 use App\Librarys\Interfaces\Admin\ContentInterface;
 use App\Librarys\Interfaces\Admin\MenuInterface;
@@ -57,7 +58,7 @@ class AdminController extends Controller
         $view['newvideolist'] = QaecmsVideo::offset(0)->limit(15)->orderBy('last', 'desc')->get();
         $view['newarticlelist'] = QaecmsArticle::offset(0)->limit(15)->orderBy('created_at', 'desc')->get();
         $view['newuserlist'] = QaecmsUser::offset(0)->limit(15)->orderBy('created_at', 'desc')->get();
-        $view['version'] = $ver->vn."({$ver->version})";
+        $view['version'] = $ver->vn . "({$ver->version})";
         return view('admin.page.dashboard.workspace', $view);
     }
 
@@ -186,8 +187,14 @@ class AdminController extends Controller
         return $comment->CommentConfig();
     }
 
-    public function GetVideoInfo(CollectInterface $collect){
+    public function GetVideoInfo(CollectInterface $collect)
+    {
         return $collect->GetVideoInfo();
+    }
+
+    public function SinglePage(SinglePageInterface $singlePage)
+    {
+        return $singlePage->SinglePage();
     }
 
 }

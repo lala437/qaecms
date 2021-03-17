@@ -57,9 +57,20 @@ class JobService implements JobInterface
         $data = $this->request->input('data');
         $job = QaecmsJob::find($data['id']);
         $api = $job->api;
-        $content = qae_xml_parse(curl_get($api,$job->proxy));
-        $types = (array)$content->class->ty;
-        unset($types['@attributes']);
+        $res = curl_get($api,$job->proxy);
+        $datatype = IsXmlOrJson($res);
+        $types = [];
+        switch ($datatype){
+            case "xml":
+                $content = qae_xml_parse($res);
+                $types = (array)$content->class->ty;
+                unset($types['@attributes']);
+            break;
+            case "json":
+                $content = json_decode($res,1);
+                $types = array_column($content['class'],'type_name');
+                break;
+        }
         $faild = [];
         $success = [];
         foreach ($types as $type) {

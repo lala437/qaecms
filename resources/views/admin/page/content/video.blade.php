@@ -199,8 +199,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">播放地址:</label>
                 <div class="layui-input-block">
-                    <textarea name="content" class="layui-textarea" id="introduction" lay-verType="tips"
-                              lay-verify="required"></textarea>
+                    <textarea name="content" class="layui-textarea" id="introduction" lay-verType="tips" lay-verify="required"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">

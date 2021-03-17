@@ -14,6 +14,7 @@ use App\Librarys\Services\Admin\PayService;
 use App\Librarys\Services\Admin\PlayerService;
 use App\Librarys\Services\Admin\SearchService;
 use App\Librarys\Services\Admin\ShopService;
+use App\Librarys\Services\Admin\SinglePageService;
 use App\Librarys\Services\Admin\SystemService;
 use App\Librarys\Services\Admin\ContentService;
 use App\Librarys\Services\Admin\MenuService;
@@ -81,6 +82,9 @@ class AdminServiceProvider extends ServiceProvider
         });
         $this->app->bind('App\Librarys\Interfaces\Admin\CollectInterface', function ($app) {
             return new CollectService(Request::capture());
+        });
+        $this->app->bind('App\Librarys\Interfaces\Admin\SinglePageInterface', function ($app) {
+            return new SinglePageService(Request::capture());
         });
     }
 

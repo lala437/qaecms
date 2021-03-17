@@ -63,6 +63,9 @@ Route::namespace('Admin')->name('qaecmsadmin.')->prefix(config('qaecms.admin_pat
     //任务管理
     Route::match(['get','post'],'task','AdminController@Task')->name('task')->middleware(['adminauth']);
 
+    //单页设置
+    Route::match(['get','post'],'singlepage','AdminController@SinglePage')->name('singlepage')->middleware(['adminauth']);
+
     //留言板管理
     Route::match(['get','post'],'commentconfig','AdminController@CommentConfig')->name('commentconfig')->middleware(['adminauth']);
     Route::match(['get','post'],'comment','AdminController@Comment')->name('comment')->middleware(['adminauth']);

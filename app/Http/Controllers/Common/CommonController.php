@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Common;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use GuzzleHttp\Pool;
-use Illuminate\Support\Facades\Storage;
 
 class CommonController extends Controller
 {
@@ -16,13 +15,13 @@ class CommonController extends Controller
     private $faildurl;
     private $header = ['User-Agent' => 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36'];
 
-    public function MuliteRequest($urlarr,$proxy=null)
+    public function MuliteRequest($urlarr,$proxy=null,$type="xml")
     {
         $client = new Client();
         $this->mulitedata = [];
         $this->faildurl = [];
         $totalPageCount = count($urlarr);
-        $requests = function ($total) use ($client, $urlarr,$proxy) {
+        $requests = function ($total,$type) use ($client, $urlarr,$proxy) {
             foreach ($urlarr as $url) {
                 yield function () use ($client, $url,$proxy) {
                     if(filled($proxy)){
@@ -33,10 +32,10 @@ class CommonController extends Controller
                 };
             }
         };
-        $pool = new Pool($client, $requests($totalPageCount), [
+        $pool = new Pool($client, $requests($totalPageCount,$type), [
             'concurrency' => $totalPageCount < 20 ? $totalPageCount : 20,
-            'fulfilled' => function ($response, $index) {
-                $this->mulitedata[] = @qae_xml_parse($response->getBody()->getContents());
+            'fulfilled' => function ($response, $index) use($type) {
+                $this->mulitedata[] = ($type=="xml"?@qae_xml_parse($response->getBody()->getContents()):json_decode($response->getBody()->getContents()));
             },
             'rejected' => function ($reason, $index) use ($urlarr) {
                 $this->faildurl[] = $urlarr[$index];
