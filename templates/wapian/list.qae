@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="cache-control" content="no-siteapp">
+    <title>{{$__WEBNAME__}}-{{$__WEBNAME__}}-@yield('title')</title>
+    <meta name="keywords" content="{{$__SEOKEYWORDS__}}">
+    <meta name="description" content="{{$__SEODESCRIPTION__}}">
+    @include("wapian.include")
+    <style>
+        #ys {
+            background: deepskyblue;
+            color: black;
+        }
+        .jkbtn{
+            background: deepskyblue;
+            color: black;
+        }
+    </style>
+</head>
+@include("wapian.head")
+    <div class="container">
+        <div class="row">
+            <div class="hy-cascade clearfix">
+                <div class="left-head hidden-sm hidden-xs">
+                    <ul class="clearfix">
+                        @foreach(qae_class_type("video") as $class)
+                            <li><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>$class->id,'cat'=>'all','page'=>1,'limit'=>36])}}" class="{{$class->id==$list->class?"active":""}}" target='_self'>{{$class->name}}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="content-meun clearfix">
+                    <a class="head" href="javascript:;" data-toggle="collapse" data-target="#collapse">
+                        <span class="text">分类</span></a>
+                    <div class="item collapse in" id="collapse">
+                        <ul class="visible-sm visible-xs clearfix">
+                            <li class="text"><span class="text-muted">按频道</span></li>
+                            @foreach(qae_class_type("video") as $class)
+                                <li><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>$class->id,'cat'=>'all','page'=>1,'limit'=>36])}}" class="{{$class->id==$list->class?"active":""}}" target='_self'>{{$class->name}}</a></li>
+                            @endforeach
+                        </ul>
+                        <ul class="clearfix">
+                            <li class="text hidden-md hidden-lg"><span class="text-muted">按分类</span></li>
+                            <li><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>$list->class,'cat'=>"all",'page'=>1,'limit'=>36])}}" style='white-space: pre-wrap;margin-bottom: 4px;' class="{{$list->cat=="all"?"active":""}}"   target='_self'>全部</a></li>
+                            @foreach(qae_class_type("video",$list->class) as $cat)
+                                <li><a class='{{$cat->id==$list->cat?"active":""}}' style='white-space: pre-wrap;margin-bottom: 4px;' href='{{route('qaecmsindex.list',['type'=>'video','class'=>$list->class,'cat'=>$cat->id,'page'=>1,'limit'=>36])}}' target='_self'>{{$cat->name}}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="hy-layout clearfix">
+{{--                广告位--}}
+            </div>
+            <div class="hy-layout clearfix" style="margin-top: 0;">
+                <div class="hy-switch-tabs active clearfix">
+                    <span class="text-muted pull-right hidden-xs">如果您喜欢本站请动动小手分享给您的朋友！</span>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>$list->class,'cat'=>'all','page'=>1,'limit'=>36])}}">最新视频</a></li>
+                    </ul>
+                </div>
+                <div class="hy-video-list">
+                    <div class="item">
+                        <ul class="clearfix">
+                            @foreach($list->data as $video)
+                                <div class="col-md-2 col-sm-3 col-xs-4">
+                                    <a class="videopic lazy" href="{{route('qaecmsindex.play',['id'=>$video->id])}}" title="{{$video->title}}" data-src="{{$video->thumbnail}}" >
+                                        <span class="play hidden-xs">{{$video->score}}</span>
+                                        <span class="pic-text text-right">{{is_numeric($video->note)?"更新到".$video->note."集":"高清版"}}</span>
+                                    </a>
+                                    <div class="title">
+                                        <h5 class="text-overflow"><a href="{{route('qaecmsindex.play',['id'=>$video->id])}}" title="{{$video->title}}" src="{{$video->thumbnail}}">{{$video->title}}</a></h5>
+                                    </div>
+                                    <div class="subtitle text-muted text-muted text-overflow hidden-xs">{{blank($video->actor)?"qaecms":$video->actor}}</div>
+                                </div>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                @include('wapian.page')
+            </div>
+        </div>
+    </div>
+@include("wapian.foot")

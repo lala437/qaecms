@@ -1,0 +1,16 @@
+@if($list->totalpage>1)
+    <div class="hy-page clearfix">
+    <ul class="cleafix">
+            <li><a class="pagelink_a" href="{{route('qaecmsindex.list',['type'=>'video','class'=>$list->class,'cat'=>$list->cat,'page'=>1,'limit'=>35])}}" title="首页">首页</a></li>
+            <li><a class="pagelink_a" href="{{route('qaecmsindex.list',['type'=>'video','class'=>$list->class,'cat'=>$list->cat,'page'=>($list->page>1?($list->page)-1:1),'limit'=>35])}}" title="上一页">上一页</a></li>
+            @for($i=$list->page;$i<=qae_page($list->page,$list->totalpage,4);$i++)
+                @if($list->page==$i)
+                    <li class="mbnone"><a class="" href="javascript:;" title="第{{$i}}页">{{$i}}</a></li>
+                @else
+                    <li class="mbnone"><a class="" href="{{route('qaecmsindex.list',['type'=>'video','class'=>$list->class,'cat'=>$list->cat,'page'=>$i,'limit'=>35])}}" title="第{{$i}}页" >{{$i}}</a></li>
+                @endif
+            @endfor
+            <li><a class="pagelink_a" href="{{route('qaecmsindex.list',['type'=>'video','class'=>$list->class,'cat'=>$list->cat,'page'=>(($list->page)+1),'limit'=>35])}}" title="下一页">下一页</a></li>
+    </ul>
+    </div>
+@endif

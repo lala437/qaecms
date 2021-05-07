@@ -1,5 +1,5 @@
 <?php
-//静态资源1111
+//静态资源
 function qae_asset($path = '')
 {
     return asset("/templates" . ($path ? DIRECTORY_SEPARATOR . ltrim($path, DIRECTORY_SEPARATOR) : $path));
@@ -26,7 +26,7 @@ function qae_video($typeid, $vip = 0, $order = "hot", $page = 0, $limit = 10)
     } else {
         $type = [$typeid];
     }
-    $shost = \App\Model\QaecmsVideo::whereIn('type',$type)->select('shost')->first();
+    $shost = \App\Model\QaecmsVideo::whereIn('type',$type)->selectRaw('shost,count(1) num')->groupBy('shost')->orderBy('num','desc')->first();
     $videos = \App\Model\QaecmsVideo::whereIn('type', $type)->where(['vip' => $vip])->where(['status' => 1])->orderBy($order, "desc")->when($shost,function ($query)use ($shost){
         return $query->where(['shost'=>$shost->shost]);
     })->offset($page)->limit($limit)->get();

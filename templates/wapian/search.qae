@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>{{$__WEBNAME__}}-搜索-{{request('wd')}}</title>
+    <meta name="keywords" content="{{$__SEOKEYWORDS__}}" />
+    <meta name="description" content="{{$__SEODESCRIPTION__}}" />
+    @include('wapian.include')
+</head>
+
+<body>
+@include('wapian.head')
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 col-sm-12 hy-main-content">
+            <div class="hy-layout clearfix">
+                <div class="hy-video-head">
+                    <span class="text-muted pull-right hidden-xs"></span>
+                    <h4 class="margin-0"><span class="text-color">{{request('wd')}}</span>搜索结果</h4>
+                </div>
+                @foreach($search->data as $v)
+                        <div class="hy-video-details active clearfix">
+                            <div class="item clearfix">
+                                <dl class="content">
+                                    <dt><a class="videopic" href="{{route('qaecmsindex.play',['id'=>$v->id])}}" style="background: url({{$v->thumbnail}}) no-repeat; background-position:50% 50%; background-size: cover;"><span class="play hidden-xs"></span></a></dt>
+                                    <dd class="clearfix">
+                                        <div class="head">
+                                            <h3>{{$v->title}}</h3>
+                                        </div>
+                                        <ul>
+                                            <li><span class="text-muted">简介：</span>{!! $v->introduction !!}</li>
+
+                                        </ul>
+                                        <div class="block">
+                                            <a class="text-muted" href="{{route('qaecmsindex.play',['id'=>$v->id])}}">查看详情 <i
+                                                    class="icon iconfont icon-right"></i></a>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+@include("wapian.foot")

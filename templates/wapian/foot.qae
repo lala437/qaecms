@@ -1,0 +1,63 @@
+<div class="hy-gototop hidden-sm hidden-xs">
+    <ul class="item clearfix">
+        <li><a data-toggle="tooltip" data-placement="top" class="" href="javascript:scroll(0,0)" title="返回顶部"><i class="icon iconfont icon-uparrow"></i></a></li>
+    </ul>
+</div>
+<div class="tabbar visible-xs">
+    <a href="/" class="item ">
+        <i class="icon iconfont icon-home"></i>
+        <p class="text">首页</p>
+    </a>
+    <a href="{{route('qaecmsindex.list',['type'=>'video','class'=>1,'cat'=>'all','page'=>1,'limit'=>35])}}" class="item ">
+        <i class="icon iconfont icon-film"></i>
+        <p class="text">电影</p>
+    </a><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>2,'cat'=>'all','page'=>1,'limit'=>35])}}" class="item ">
+        <i class="icon iconfont icon-show"></i>
+        <p class="text">电视剧</p>
+    </a><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>3,'cat'=>'all','page'=>1,'limit'=>35])}}" class="item ">
+        <i class="icon iconfont icon-mallanimation"></i>
+        <p class="text">动漫</p>
+    </a><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>4,'cat'=>'all','page'=>1,'limit'=>35])}}" class="item ">
+        <i class="icon iconfont icon-flag"></i>
+        <p class="text">综艺</p>
+    </a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="hy-footer clearfix">
+            <p style="padding: 0 4px;text-align:center" class="container-fluid">
+                本站提供的最新电影和电视剧资源均系收集于各大视频网站,本站只提供web页面服务,并不提供影片资源存储,也不参与录制、上传<br/>
+                若本站收录的节目无意侵犯了贵司版权，请给网页底部邮箱地址来信,我们会及时处理和回复,谢谢。<br/>
+                管理员邮箱：{{$__WEBEMAIL__}} <br/>
+                <center><div>{!!$__WEBSTATISTIC__!!}</div></center>
+                <p>Copyright:<a href="#" target="_blank">{{$__WEBICP__}}-All Rights Reserved.</a></p>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(function () {
+        $('#sousuo').click(function () {
+            var key = $('#qaecms-wd').val();
+            if (key != '' && key != null) {
+                let url = "/search/video/" + key + ".html";
+                window.location = url
+            }
+        });
+
+        $('input').keyup(function () {
+            if (event.keyCode == 13) {
+                $("#sousuo").trigger("click");
+            }
+        });
+
+        $('.lazy').lazyload({
+            placeholder:"/template/wapian/images/loading.gif",
+            effect : "fadeIn", //渐现，show(直接显示),fadeIn(淡入),slideDown(下拉)
+            threshold : 200, //预加载，在图片距离屏幕180px时提前载入
+        });
+    })
+</script>
+</html>

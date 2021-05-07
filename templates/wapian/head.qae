@@ -1,0 +1,30 @@
+<body>
+<div class="hy-head-menu">
+    <div class="container">
+        <div class="row">
+            <div class="item">
+                <div class="logo">
+                    <a class="hidden-sm hidden-xs" href="/"><img src="{{$__WEBLOGO__}}" height="50px" width="150px"/></a>
+                </div>
+                <div class="search  hidden-sm">
+                    <div id="qae-search" role="search">
+                        <input class="form-control" placeholder="输入影片关键词..." type="text" id="qae-wd" name="wd" required="">
+                        <input type="submit" class="hide"><a href="javascript:" class="btns" title="搜索" id="sousuo"><i class="icon iconfont icon-search"></i></a>
+                    </div>
+                </div>
+                <ul class="menulist hidden-xs">
+                    @foreach(qae_nav() as $nav)
+                            <li id="nav-index"><a href="{{$nav->href}}">{{$nav->title}}</a></li>
+                    @endforeach
+                        <li><a href="javascript:;" class="qaecms_history">历史记录</a>
+                            <div class="autocomplete-suggestions" id="history" style="z-index:99;display: none">
+                                @foreach(qae_history(10) as $history)
+                                    <div class="autocomplete-suggestion qaehistory" data-href="{{$history->url}}">{{$history->title}}</div>
+                                @endforeach
+                            </div>
+                        </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,253 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="cache-control" content="no-siteapp">
+    <title>{{$__WEBNAME__}}-{{$__WEBNAME__}}-@yield('title')</title>
+    <meta name="keywords" content="{{$__SEOKEYWORDS__}}">
+    <meta name="description" content="{{$__SEODESCRIPTION__}}">
+    @include("wapian.include")
+</head>
+@include("wapian.head")
+<div class="container">
+    <div class="row" style="margin-top:10px;">
+    </div>
+    <div class="row">
+        <div class="hy-layout clearfix">
+            <div class="col-lg-7 col-md-6 col-sm-12">
+                <div class="swiper-container hy-slide">
+                    <div class="swiper-wrapper">
+                        @foreach(qae_carousel('index',10) as $banner)
+                                <div class="swiper-slide">
+                                    <div class="hy-video-slide">
+                                        <a class="videopic"
+                                           href="{{$banner->href}}"
+                                           title="{{$banner->title}}"
+                                           style="padding-top: 60%; background: url({{$banner->image}})  no-repeat; background-position:50% 50%; background-size: cover;">
+                                            <span class="title">{{$banner->title}}</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                    </div>
+                    <div class="swiper-button-next hidden-xs">
+                        <i class="icon iconfont icon-right"></i>
+                    </div>
+                    <div class="swiper-button-prev hidden-xs">
+                        <i class="icon iconfont icon-back"></i>
+                    </div>
+                    <div class="swiper-pagination">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-12 padding-0">
+                <div class="hy-index-menu clearfix">
+                    <div class="item">
+                        <ul class="clearfix">
+                            <li><a href="{{route('qaecmsindex.list',['type'=>"video",'class'=>1,'cat'=>'all','page'=>1,'limit'=>35])}}"><i
+                                        class="icon iconfont icon-menu1 text-color"></i><span>最新电影</span></a>
+                            </li>
+                            <li><a href="{{route('qaecmsindex.list',['type'=>"video",'class'=>2,'cat'=>'all','page'=>1,'limit'=>35])}}"><i class="icon iconfont icon-ic_mymatch_ranking text-color"></i><span>电视剧</span></a>
+                            </li>
+                            <li><a href="{{route('qaecmsindex.list',['type'=>"video",'class'=>3,'cat'=>'all','page'=>1,'limit'=>35])}}"><i
+                                        class="icon iconfont icon-update text-color"></i><span>综艺</span></a>
+                            </li>
+                            <li><a href="{{route('qaecmsindex.user')}}"><i
+                                        class="icon iconfont icon-member1 text-color"></i><span>会员中心</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="hy-index-tags hidden-md clearfix">
+                    <div class="item">
+                        <ul class="clearfix">
+                            @foreach(qae_class_type("video",1) as $cat)
+                                <li><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>1,'cat'=>$cat->id,'page'=>1,'limit'=>35])}}">{{$cat->name}}</a></li>
+                                @break($loop->index==7)
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <div class="hy-right-qrcode hidden-sm hidden-xs">
+                    <div class="item">
+                        <dl class="clearfix">
+                            <dt><img src="http://qr.kegood.com/?m=0&e=L&p=5&url={{request()->url()}}"></dt>
+                            <dd>
+                                <h4>扫描二维码手机上看</h4>
+                                <p class="text-muted">
+                                    也可以分享到朋友圈哦！
+                                </p>
+                                <p class="margin-0 text-muted">{{url("/")}} </p>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--电影-->
+        <div class="row" style="margin-top:10px"></div>
+        <div class="hy-layout clearfix">
+            <div class="hy-video-head">
+                <ul class="pull-right">
+                    @foreach(qae_class_type("video",1) as $cat)
+                        <li class="text-muted hidden-md hidden-sm hidden-xs"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>1,'cat'=>$cat->id,'page'=>1,'limit'=>35])}}" class="text-muted border-right">{{$cat->name}}</a> /</li>
+                        @break($loop->index==7)
+                    @endforeach
+                    <li class="active"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>1,'cat'=>'all','page'=>1,'limit'=>35])}}" class="text-muted">更多<i class="icon iconfont icon-right"></i></a></li>
+                </ul>
+                <h3 class="margin-0"><i class="icon iconfont icon-film text-color"></i>电影</h3>
+            </div>
+            <div class="clearfix">
+                @foreach(qae_video(1,0,'time',0,18) as $video)
+                    <div class="col-md-2 col-sm-3 col-xs-4">
+                        <a class="videopic lazy" href="{{route('qaecmsindex.play',['id'=>$video->id])}}" title="{{$video->title}}" data-src="{{$video->thumbnail}}">
+                            <span class="play hidden-xs"></span>
+                            <span class="score">{{$video->score}}</span>
+                        </a>
+                        <div class="title">
+                            <h5 class="text-overflow"><a href="{{route('qaecmsindex.play',['id'=>$video->id])}}" title="{{$video->title}}" src="{{$video->thumbnail}}">{{$video->title}}</a></h5>
+                        </div>
+                        <div class="subtitle text-muted text-muted text-overflow hidden-xs">{{$video->star}}</div>
+                    </div>
+                @endforeach
+                <div class="hy-video-footer visible-xs clearfix">
+                    <a href="{{route('qaecmsindex.list',['type'=>'video','class'=>1,'cat'=>'all','page'=>1,'limit'=>35])}}" class="text-muted">查看更多 <i
+                            class="icon iconfont icon-right pull-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <!--电影-->
+        <!--电视剧-->
+        <div class="row" style="margin-top:10px"></div>
+        <div class="hy-layout clearfix">
+            <div class="hy-video-head">
+                <ul class="pull-right">
+                    @foreach(qae_class_type("video",2) as $cat)
+                        <li class="text-muted hidden-md hidden-sm hidden-xs"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>1,'cat'=>$cat->id,'page'=>1,'limit'=>35])}}" class="text-muted border-right">{{$cat->name}}</a> /</li>
+                        @break($loop->index==7)
+                    @endforeach
+                    <li class="active"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>2,'cat'=>'all','page'=>1,'limit'=>35])}}" class="text-muted">更多<i class="icon iconfont icon-right"></i></a></li>
+                </ul>
+                <h3 class="margin-0"><i class="icon iconfont icon-film text-color"></i>电视剧</h3>
+            </div>
+            <div class="clearfix">
+                @foreach(qae_video(2,0,'time',0,18) as $video)
+                    <div class="col-md-2 col-sm-3 col-xs-4">
+                        <a class="videopic lazy" href="{{route('qaecmsindex.play',['id'=>$video->id])}}" title="{{$video->title}}" data-src="{{$video->thumbnail}}">
+                            <span class="play hidden-xs"></span>
+                            <span class="score">{{$video->score}}</span>
+                        </a>
+                        <div class="title">
+                            <h5 class="text-overflow"><a href="{{route('qaecmsindex.play',['id'=>$video->id])}}" title="{{$video->title}}" src="{{$video->thumbnail}}">{{$video->title}}</a></h5>
+                        </div>
+                        <div class="subtitle text-muted text-muted text-overflow hidden-xs">{{$video->star}}</div>
+                    </div>
+                @endforeach
+                <div class="hy-video-footer visible-xs clearfix">
+                    <a href="{{route('qaecmsindex.list',['type'=>'video','class'=>2,'cat'=>'all','page'=>1,'limit'=>35])}}" class="text-muted">查看更多 <i
+                            class="icon iconfont icon-right pull-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <!--电视剧-->
+        <!--综艺-->
+        <div class="row" style="margin-top:10px"></div>
+        <div class="hy-layout clearfix">
+            <div class="hy-video-head">
+                <ul class="pull-right">
+                    @foreach(qae_class_type("video",3) as $cat)
+                        <li class="text-muted hidden-md hidden-sm hidden-xs"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>3,'cat'=>$cat->id,'page'=>1,'limit'=>35])}}" class="text-muted border-right">{{$cat->name}}</a> /</li>
+                        @break($loop->index==7)
+                    @endforeach
+                    <li class="active"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>3,'cat'=>'all','page'=>1,'limit'=>35])}}" class="text-muted">更多<i class="icon iconfont icon-right"></i></a></li>
+                </ul>
+                <h3 class="margin-0"><i class="icon iconfont icon-film text-color"></i>综艺</h3>
+            </div>
+            <div class="clearfix">
+                @foreach(qae_video(3,0,'time',0,18) as $video)
+                    <div class="col-md-2 col-sm-3 col-xs-4">
+                        <a class="videopic lazy" href="{{route('qaecmsindex.play',['id'=>$video->id])}}" title="{{$video->title}}" data-src="{{$video->thumbnail}}">
+                            <span class="play hidden-xs"></span>
+                            <span class="score">{{$video->score}}</span>
+                        </a>
+                        <div class="title">
+                            <h5 class="text-overflow"><a href="{{route('qaecmsindex.play',['id'=>$video->id])}}" title="{{$video->title}}" src="{{$video->thumbnail}}">{{$video->title}}</a></h5>
+                        </div>
+                        <div class="subtitle text-muted text-muted text-overflow hidden-xs">{{$video->star}}</div>
+                    </div>
+                @endforeach
+                <div class="hy-video-footer visible-xs clearfix">
+                    <a href="{{route('qaecmsindex.list',['type'=>'video','class'=>3,'cat'=>'all','page'=>1,'limit'=>35])}}" class="text-muted">查看更多 <i
+                            class="icon iconfont icon-right pull-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <!--综艺-->
+        <!--动漫-->
+        <div class="row" style="margin-top:10px"></div>
+        <div class="hy-layout clearfix">
+            <div class="hy-video-head">
+                <ul class="pull-right">
+                    @foreach(qae_class_type("video",4) as $cat)
+                        <li class="text-muted hidden-md hidden-sm hidden-xs"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>4,'cat'=>$cat->id,'page'=>1,'limit'=>35])}}" class="text-muted border-right">{{$cat->name}}</a> /</li>
+                        @break($loop->index==7)
+                    @endforeach
+                    <li class="active"><a href="{{route('qaecmsindex.list',['type'=>'video','class'=>4,'cat'=>'all','page'=>1,'limit'=>35])}}" class="text-muted">更多<i class="icon iconfont icon-right"></i></a></li>
+                </ul>
+                <h3 class="margin-0"><i class="icon iconfont icon-film text-color"></i>动漫</h3>
+            </div>
+            <div class="clearfix">
+                @foreach(qae_video(4,0,'time',0,18) as $video)
+                    <div class="col-md-2 col-sm-3 col-xs-4">
+                        <a class="videopic lazy" href="{{route('qaecmsindex.play',['id'=>$video->id])}}" title="{{$video->title}}" data-src="{{$video->thumbnail}}">
+                            <span class="play hidden-xs"></span>
+                            <span class="score">{{$video->score}}</span>
+                        </a>
+                        <div class="title">
+                            <h5 class="text-overflow"><a href="{{route('qaecmsindex.play',['id'=>$video->id])}}" title="{{$video->title}}" src="{{$video->thumbnail}}">{{$video->title}}</a></h5>
+                        </div>
+                        <div class="subtitle text-muted text-muted text-overflow hidden-xs">{{$video->star}}</div>
+                    </div>
+                @endforeach
+                <div class="hy-video-footer visible-xs clearfix">
+                    <a href="{{route('qaecmsindex.list',['type'=>'video','class'=>4,'cat'=>'all','page'=>1,'limit'=>35])}}" class="text-muted">查看更多 <i
+                            class="icon iconfont icon-right pull-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <!--动漫-->
+        <div class="row" style="margin-top:10px"></div>
+        <div class="hy-layout clearfix">
+            <div class="hy-video-head">
+                <h3 class="margin-0">友情链接</h3>
+            </div>
+            <div class="hy-footer-link">
+                <div class="item clearfix">
+                    <ul class="clearfix">
+                        @foreach(qae_link() as $link)
+                                <a href="{{$link->link}}" target="_blank">{{$link->name}}</a>
+                         @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var swiper = new Swiper('.hy-slide', {
+        autoplay:true,
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+@include("wapian.foot")

@@ -47,7 +47,7 @@ class IndexService implements IndexInterface
             $cat_id = QaecmsType::where(['pid' => $class])->pluck('id')->toArray();
             array_unshift($cat_id, $class);
             if ($type == "video") {
-                $shost = QaecmsVideo::select(['shost'])->first();
+                $shost = QaecmsVideo::where(['type' => $cat_id])->selectRaw('shost,count(1) num')->groupBy('shost')->orderBy('num','desc')->first();
                 $obj = QaecmsVideo::where(['status' => 1])->when($this->user, function ($query) {
                     return $query->whereIn('vip', [0, $this->user->vip]);
                 })->when(!$this->user, function ($query) {
@@ -65,7 +65,7 @@ class IndexService implements IndexInterface
         } else {
             $cat_id = $cat;
             if ($type == "video") {
-                $shost = QaecmsVideo::select(['shost'])->first();
+                $shost = QaecmsVideo::where(['type' => $cat_id])->selectRaw('shost,count(1) num')->groupBy('shost')->orderBy('num','desc')->first();
                 $obj = QaecmsVideo::where(['status' => 1])->when($this->user, function ($query) {
                     return $query->whereIn('vip', [0, $this->user->vip]);
                 })->when(!$this->user, function ($query) {

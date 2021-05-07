@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="cache-control" content="no-siteapp">
+    <title>{{$detail->title}}详情介绍-{{$detail->title}}在线观看-{{$detail->title}}迅雷下载 - {{$__WEBNAME__}}</title>
+    <meta name="keywords" content="{{$detail->title}}在线收看,{{$detail->title}}迅雷下载" />
+    <meta name="description" content="{{$detail->title}}剧情:{{$detail->title}}" />
+    @include("wapian.include")
+    <style>
+        .bs {
+            background: deepskyblue;
+            color: black;
+        }
+        .selectcl{
+            width: 100%;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border:1px solid #EEEEEE;
+        }
+    </style>
+    <script>
+        $('#source').change(function () {
+            window.location = "/play/"+$(this).val()+".html"
+        })
+    </script>
+</head>
+@include("wapian.head")
+<div class="container">
+    <div class="row">
+        <div class="hy-player clearfix">
+            <div class="item">
+                <div class="col-md-9 col-sm-12 padding-0">
+                    <div class="info embed-responsive embed-responsive-4by3 bofangdiv" id="cms_player">
+                        <img id="addid" src="" style="display: none;width:100%;border: 0px solid #FF6651">
+                        <iframe id="video" src="{{$detail->play}}" allowfullscreen="true" allowtransparency="true" style="width:100%;border:none"></iframe>
+                        <a style="display:none" id="videourlgo" href=""></a>
+                    </div>
+                    <div class="footer clearfix">
+                        <span class="text-muted" id="xuji">正在为您播放-{{$detail->title}}<span class="js"></span></span>
+
+                    </div>
+                    <div class="footer clearfix" id="xlu" style="display:inline-block; height:auto">
+                        <span class="text-muted" id="xlus">
+                           <select name="" id="source" class="selectcl" onchange="">
+                                    @foreach($samesource as $source)
+                                   <option value="{{$source->id}}" {{$source->id==$detail->id?"selected":""}}>片源{{$loop->index+1}}</option>
+                               @endforeach
+                           </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12 padding-0">
+                    <div class="sidebar">
+                        <div class="hy-play-list play">
+                            <div class="item tyui" id="dianshijuid">
+                                @foreach($detail->content as $player=>$playlist)
+                                <div class="panel clearfix">
+                                    <a class="option collapsed" data-toggle="collapse" data-parent="#playlist" href="#playlist1">{{$player}}<span class="text-muted pull-right"><i class="icon iconfont icon-right"></i></span></a>
+                                    <div id="playlist1" class="playlist collapse in dianshijua">
+                                        <ul class="playlistlink-1 list-15256 clearfix">
+                                            @foreach($playlist as $play)
+                                                <li>
+                                                    <a href='{{qae_play_now($detail->id,$play->playerid,$play->js)}}' target="_self"  class="am-btn am-btn-default lipbtn {{$detail->now==$play->playerid.$play->js?"bs":""}}" style="">{{$play->episode}}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-12 hy-main-content">
+                    <div class="hy-layout clearfix">
+                        <div class="hy-switch-tabs">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#list3" data-toggle="tab">剧情介绍</a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="hy-play-list tab-pane fade in active" id="list3">
+                                <div class="item">
+                                    <div class="plot">
+                                        <span>简介：</span>{!! $detail->introduction !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12 hy-main-side hidden-sm hidden-xs">
+                    <div class="hy-layout clearfix">
+                        <div class="hy-details-qrcode side clearfix">
+                            <div class="item">
+                                <h5 class="text-muted">扫一扫用手机观看</h5>
+                                <p>
+                                    <img src="http://qr.kegood.com/?m=0&e=L&p=5&url={{request()->url()}}" width="150">
+                                </p>
+                                <p class="text-muted">
+                                    分享到朋友圈
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span class="ff-hits" id="ff-hits-insert" data-id="37432" data-sid="vod" data-type="insert"></span>
+        <script>
+            $('#source').change(function () {
+                window.location = "/play/"+$(this).val()+".html"
+            })
+        </script>
+        <span class="ff-record-set" data-sid="1" data-id="37432" data-id-sid="1" data-id-pid="1">
+</span>
+@include("wapian.foot")

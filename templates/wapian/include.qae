@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="{{qae_asset("wapian/css/bootstrap.min.css")}}"/>
+<link href="{{qae_asset("wapian/css/swiper.min.css")}}" rel="stylesheet" type="text/css">
+<link href="{{qae_asset("wapian/css/iconfont.css")}}" rel="stylesheet" type="text/css"/>
+<link href="{{qae_asset("wapian/css/iconfont2.css")}}" rel="stylesheet" type="text/css"/>
+<link href="{{qae_asset("wapian/css/whitecolor.css")}}" rel="stylesheet" type="text/css"/>
+<link href="{{qae_asset("wapian/css/style.min.css")}}" rel="stylesheet" type="text/css"/>
+<script type='text/javascript' src="{{qae_asset("wapian/js/jquery.min.js")}}"></script>
+<script type='text/javascript' src="{{qae_asset("wapian/js/swiper.min.js")}}"></script>
+{{--<script type='text/javascript' src="{{qae_asset("wapian/js/system.js")}}"></script>--}}
+<script type="text/javascript" src="{{qae_asset("wapian/js/su.js")}}"></script>
+<script type="text/javascript" src="{{qae_asset("wapian/js/lazyload.min.js")}}"></script>
+<script type='text/javascript' src="{{qae_asset("wapian/js/wapian.js")}}"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--[if lt IE 9]>
+<script src="{{qae_asset("wapian/js/html5.js")}}"></script><![endif]-->
