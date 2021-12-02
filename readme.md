@@ -3,7 +3,7 @@
 一个快速、简单、易用的内容管理系统
 
 #官方文档
-[查看文档](https://doc.qaecms.com/)
+[查看文档](https://lala437.github.io/qaecms_doc.github.io/#/)
 
 ## 环境要求
 - PHP >= 7.1.3
